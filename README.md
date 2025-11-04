@@ -56,5 +56,13 @@ License
 Contact
 - For improvements or issues, modify the code locally and open PRs if you host this on GitHub.
 
-Example Pictures:
-![Preview1](./example/DogOriginal.png)
+## Example Pictures:
+<br>
+
+Unprocessed Image
+<br>
+![Original Dog](./ExampleImages/DogOriginal.png)
+
+Encoded then Decoded Image
+<br>
+![Decoded Dog](./ExampleImages/DogDecoded.png)
