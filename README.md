@@ -66,3 +66,9 @@ Unprocessed Image
 Encoded then Decoded Image
 <br>
 ![Decoded Dog](./ExampleImages/DogDecoded.png)
+<br>
+#### Settings: <br>
+- duration_per_line: 0.18
+- sample_rate:44100
+- freq_min=300,
+- freq_max=18000
