@@ -5,8 +5,8 @@ A small research / demo toolkit that encodes images as audio signals and decodes
 This repository is intended as an experimental playground — it's not production software, but it is convenient for testing acoustic image transmission (e.g. playing audio from a phone to a laptop microphone).
 
 Contents
-- `encoder_pretty.py` — Image -> audio encoder (color support). Adjusts frequency ranges for R/G/B and writes a WAV + metadata JSON.
-- `decoder_live.py` — Offline WAV -> image decoder (stable color variant). Performs STFT, accumulates per-line spectra and reconstructs an image. Includes preprocessing and normalization improvements.
+- `signal_encoder.py` — Image -> audio encoder (color support). Adjusts frequency ranges for R/G/B and writes a WAV + metadata JSON.
+- `signal_decoder.py` — Offline WAV -> image decoder (stable color variant). Performs STFT, accumulates per-line spectra and reconstructs an image. Includes preprocessing and normalization improvements.
 - `live_signal_detector.py` — Live microphone listener + visualizer. Shows waveform, band energy and a live decoding preview of the image as audio is received from the microphone. Reads `signal_color_meta.json` by default to match encoder settings.
 - `signal_color_meta.json` — example encoder metadata describing width/height, duration per line, sample_rate and frequency band.
 
