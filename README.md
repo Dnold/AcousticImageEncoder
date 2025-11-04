@@ -2,7 +2,7 @@
 
 A small research / demo toolkit that encodes images as audio signals and decodes them back. The project contains: an encoder that converts images into audio signals (per-line frequency synthesis), a decoder that converts recorded WAV back into images using STFT, and a small live microphone detector/preview that attempts to decode an image from a live microphone feed.
 
-This repository is intended as an experimental playground — it's not production software, but it is convenient for testing acoustic image transmission (e.g. playing audio from a phone to a laptop microphone).
+This repository is intended as an experimental playground eg. It's not production software, but it is convenient for testing acoustic image transmission (e.g. playing audio from a phone to a laptop microphone).
 
 Contents
 - `signal_encoder.py` — Image -> audio encoder (color support). Adjusts frequency ranges for R/G/B and writes a WAV + metadata JSON.
