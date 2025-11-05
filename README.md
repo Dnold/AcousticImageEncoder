@@ -15,8 +15,8 @@ This repository is intended as an experimental playground eg. It's not productio
 
 1. Project Structure
 
-The files are organized to separate source code, examples, and documentation for clear navigation:
-
+The files are organized to separate source code, examples, and documentation for clear navigation: <br>
+```   
 AcousticImageEncoder/
 │
 ├── .gitignore             # Ignores venv, pycache, and output files
@@ -35,7 +35,7 @@ AcousticImageEncoder/
 │
 └── demo_files/            # Example files to get started
     └── Dog.png
-
+ ```
 2. Install dependencies (recommended into a venv):
 
 ```powershell
@@ -93,11 +93,11 @@ Below is an image before and after being encoded and decoded by this toolkit.
 
 Unprocessed Image
 <br>
-![Original Dog](./ExampleImages/DogOriginal.png)
+![Original Dog](./example_images/DogOriginal.png)
 
 Encoded then Decoded Image
 <br>
-![Decoded Dog](./ExampleImages/DogDecoded.png)
+![Decoded Dog](./example_images/DogDecoded.png)
 <br>
 
 **Settings used for this example:**
