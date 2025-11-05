@@ -105,7 +105,6 @@ You can pass the following arguments to customize the encoding process:
 
 
 **Example:**
-powershell
 ```python signal_decoder.py signal_color.wav --meta signal_color_meta.json --out DogDecoded.png --video_out DogDecoded.mp4 --speed 1.5```
 
 
