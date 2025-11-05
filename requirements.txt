@@ -4,3 +4,4 @@ Pillow
 matplotlib
 sounddevice
 tqdm
+opencv-python
