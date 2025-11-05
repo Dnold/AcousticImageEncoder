@@ -17,24 +17,22 @@ This repository is intended as an experimental playground eg. It's not productio
 
 The files are organized to separate source code, examples, and documentation for clear navigation:
 
-AcousticImageEncoder/
-│
-├── .gitignore             # Ignores venv, pycache, and output files
-├── LICENSE                # Defines usage rights (e.g., MIT)
-├── README.md              # This document
-├── requirements.txt       # Python dependencies
-│
-├── src/                   # Python source code
-│   ├── encode.py          # Image -> WAV encoder
-│   ├── decode_wav.py      # WAV -> Image offline decoder
-│   └── live_detector.py   # Live microphone detector
-│
-├── ExampleImages/         # Images used in this README
-│   ├── DogOriginal.png
-│   └── DogDecoded.png
-│
-└── demo_files/            # Example files to get started
-    └── Dog.png
+.gitignore             # Ignores venv, pycache, and output files
+LICENSE                # Defines usage rights (e.g., MIT)
+README.md              # This document
+requirements.txt       # Python dependencies
+
+src/                   # Python source code
+├── encode.py          # Image -> WAV encoder
+├── decode_wav.py      # WAV -> Image offline decoder
+└── live_detector.py   # Live microphone detector
+
+ExampleImages/         # Images used in this README
+├── DogOriginal.png
+└── DogDecoded.png
+
+demo_files/            # Example files to get started
+└── Dog.png
 
 2. Install dependencies (recommended into a venv):
 
