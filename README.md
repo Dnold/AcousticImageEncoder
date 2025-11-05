@@ -64,6 +64,51 @@ python live_signal_detector.py
 # By default the script will attempt to load signal_color_meta.json to match encoder settings
 ```
 
+## Command-Line Arguments
+
+### signal_encoder.py (Image -> WAV)
+You can pass the following arguments to customize the encoding process:
+
+| Argument | Type | Default | Description |
+|----------|------|---------|-------------|
+| `input_image` | str | — | Path to the input image (e.g., `demo_files/Dog.png`) |
+| `--out` | str | `signal_color.wav` | Output WAV file path |
+| `--meta_out` | str | `signal_color_meta.json` | Output metadata JSON file path |
+| `--duration` | float | `0.18` | Duration per line in seconds |
+| `--rate` | int | `44100` | Sample rate in Hz (e.g., 44100, 96000) |
+| `--freq_min` | int | `300` | Minimum frequency (Hz) |
+| `--freq_max` | int | `18000` | Maximum frequency (Hz) |
+| `--target_w` | int | None | Target image width (pixels) — auto from input if not set |
+| `--target_h` | int | None | Target image height (pixels) — auto from input if not set |
+
+**Example:**
+
+```python signal_encoder.py demo_files/Dog.png --out Dog.wav --meta_out Dog_meta.json --duration 0.2 --rate 96000 --freq_min 200 --freq_max 20000```
+
+
+### Decoder (`signal_decoder.py`)
+| Argument | Type | Default | Description |
+|----------|------|---------|-------------|
+| `input_wav` | str | — | Path to the input WAV file (e.g., `signal_color.wav`) |
+| `--meta` | str | `signal_color_meta.json` | Metadata JSON file describing the original image and encoding parameters |
+| `--out` | str | `decoded.png` | Output image file path |
+| `--img_width` | int | None | Width of the output image in pixels (auto from metadata if not set) |
+| `--img_height` | int | None | Height of the output image in pixels (auto from metadata if not set) |
+| `--duration` | float | None | Duration per line in seconds (overrides metadata if set) |
+| `--rate` | int | None | Expected sample rate of the WAV file (warns if different from actual) |
+| `--freq_min` | int | None | Minimum frequency to decode (Hz, overrides metadata if set) |
+| `--freq_max` | int | None | Maximum frequency to decode (Hz, overrides metadata if set) |
+| `--playback_speed` | float | None | Local playback speed multiplier (auto-adjusts to fit preview target duration if not set) |
+| `--preview_duration` | float | 30.0 | Target duration for live preview in seconds |
+| `--max_playback_speed` | float | 8.0 | Maximum allowed playback speed if auto-adjusting |
+| `--video_out` | str | None | Optional path to save a video preview (.mp4). If set, ffmpeg merges audio automatically if available |
+
+
+**Example:**
+powershell
+```python signal_decoder.py signal_color.wav --meta signal_color_meta.json --out DogDecoded.png --video_out DogDecoded.mp4 --speed 1.5```
+
+
 ## Dependencies
 Python Libraries (requirements.txt)
 
