@@ -50,9 +50,9 @@ def _merge_audio_video_ffmpeg(video_path, audio_path, out_path):
     ]
 
     try:
-        print("🔁 Running ffmpeg merge:", " ".join(cmd))
+        print("Running ffmpeg merge:", " ".join(cmd))
         proc = subprocess.run(cmd, capture_output=True, text=True, check=True)
-        print("✅ ffmpeg merge completed.")
+        print("ffmpeg merge completed.")
         return True
     except subprocess.CalledProcessError as e:
         print("❌ ffmpeg merge failed. stdout/stderr:\n", e.stdout, e.stderr)
@@ -70,7 +70,7 @@ def decode_wav_to_image_live_color(wav_path, meta_path=None, out_path="decoded_l
                                    video_out_path=None):
     """Decode a WAV into a color image with live preview + optional mp4 recording."""
 
-    print("🚀 Starting decode_wav_to_image_live_color")
+    print("Starting decode_wav_to_image_live_color")
     # ---- Load metadata ----
     if meta_path and os.path.exists(meta_path):
         with open(meta_path, "r") as f:
@@ -201,7 +201,7 @@ def decode_wav_to_image_live_color(wav_path, meta_path=None, out_path="decoded_l
             print("⚠️ sounddevice playback failed:", e)
 
     threading.Thread(target=_play_thread, daemon=True).start()
-    print("🔊 Playback thread launched (local playback)")
+    print("Playback thread launched (local playback)")
 
     # ---- Matplotlib live preview setup ----
     plt.ion()
@@ -232,7 +232,7 @@ def decode_wav_to_image_live_color(wav_path, meta_path=None, out_path="decoded_l
     update_interval_frames = max(1, int(8 * playback_speed))
 
     # ---- Live decoding loop ----
-    print("▶️ Starting live decode loop")
+    print("Starting live decode loop")
     for frame_idx in range(magnitude.shape[1]):
         target_time = t[frame_idx]
         # Wait according to playback_speed so preview syncs to local playback
@@ -371,9 +371,35 @@ def decode_wav_to_image_live_color(wav_path, meta_path=None, out_path="decoded_l
 
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Decode a color WAV into an image with live preview and optional video recording.")
+    parser.add_argument("input_wav", type=str, help="Path to the input WAV file (e.g., signal_color.wav)")
+    parser.add_argument("--meta", type=str, default="signal_color_meta.json", help="Path to the metadata JSON file")
+    parser.add_argument("--out", type=str, default="decoded_live_color.png", help="Output image file path")
+    parser.add_argument("--video_out", type=str, default=None, help="Optional output MP4 file path")
+    parser.add_argument("--width", type=int, default=None, help="Target image width (pixels), auto from meta if not set")
+    parser.add_argument("--height", type=int, default=None, help="Target image height (pixels), auto from meta if not set)")
+    parser.add_argument("--duration", type=float, default=None, help="Duration per line (seconds), auto from meta if not set)")
+    parser.add_argument("--rate", type=int, default=None, help="Expected sample rate (Hz), auto from meta if not set")
+    parser.add_argument("--freq_min", type=float, default=None, help="Minimum frequency (Hz), auto from meta if not set")
+    parser.add_argument("--freq_max", type=float, default=None, help="Maximum frequency (Hz), auto from meta if not set")
+    parser.add_argument("--speed", type=float, default=None, help="Playback speed multiplier (default auto)")
+    parser.add_argument("--preview_duration", type=float, default=30.0, help="Target preview duration for auto speed selection")
+    
+    args = parser.parse_args()
+
     decode_wav_to_image_live_color(
-        "signal_color.wav",
-        meta_path="signal_color_meta.json",
-        out_path="decoded_live_color.png",
-        video_out_path="decoded_live_color.mp4"
+        wav_path=args.input_wav,
+        meta_path=args.meta,
+        out_path=args.out,
+        video_out_path=args.video_out,
+        img_width=args.width,
+        img_height=args.height,
+        duration_per_line=args.duration,
+        sample_rate_expected=args.rate,
+        freq_min=args.freq_min,
+        freq_max=args.freq_max,
+        playback_speed=args.speed,
+        preview_target_duration=args.preview_duration
     )

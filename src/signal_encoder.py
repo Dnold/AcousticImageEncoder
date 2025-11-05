@@ -15,18 +15,22 @@ from PIL import Image
 import json
 from tqdm import tqdm
 import argparse
+import os
 
 def image_to_audio_color(image_path, out_path="signal_color.wav",
                          meta_out="signal_color_meta.json",
-                         target_w=480, target_h=319,
+                         target_w=None, target_h=None,
                          duration_per_line=0.1, sample_rate=96000,
                          freq_min=200, freq_max=20000,  # wider spectrum for 3 channels
                          min_brightness_threshold=0.03):
 
     # Load image as RGB and resize to target resolution
-    img = Image.open(image_path).convert("RGB").resize((target_w, target_h), Image.LANCZOS)
-    w, h = img.size
+    img = Image.open(image_path).convert("RGB")
+    if target_w and target_h:
+        img = img.resize((target_w, target_h), Image.LANCZOS)
+
     # Data shape is now (h, w, 3) for R, G, B; normalize to [0,1]
+    w, h = img.size
     data = np.array(img).astype(np.float32) / 255.0
 
     total_samples = int(sample_rate * duration_per_line * h)
@@ -98,7 +102,7 @@ def image_to_audio_color(image_path, out_path="signal_color.wav",
         signal = signal / np.max(np.abs(signal)) * 0.95
 
     write(out_path, sample_rate, signal.astype(np.float32))
-    print(f"✅ Saved color signal WAV: {out_path}")
+    print(f"Saved color signal WAV: {out_path}")
 
     # Save metadata to help the decoder match encoding parameters
     meta = {
@@ -113,14 +117,15 @@ def image_to_audio_color(image_path, out_path="signal_color.wav",
     }
     with open(meta_out, "w") as f:
         json.dump(meta, f, indent=2)
-    print(f"✅ Saved color metadata JSON: {meta_out}")
+    print(f"Saved color metadata JSON: {meta_out}")
 
-   
+    
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Convert an image into a color audio signal.")
+    # Standardpfade auf aktuellen Ordner geändert
     parser.add_argument("input_image", type=str, help="Path to the input image (e.g., demo_files/Dog.png)")
-    parser.add_argument("--out", type=str, default="signal_color.wav", help="Output WAV file path")
-    parser.add_argument("--meta_out", type=str, default="signal_color_meta.json", help="Output metadata JSON path")
+    parser.add_argument("--out", type=str, default="signal_color.wav", help="Output WAV file path (default: signal_color.wav)")
+    parser.add_argument("--meta_out", type=str, default="signal_color_meta.json", help="Output metadata JSON path (default: signal_color_meta.json)")
     parser.add_argument("--duration", type=float, default=0.18, help="Duration per line (seconds)")
     parser.add_argument("--rate", type=int, default=44100, help="Sample rate (e.g., 44100, 96000)")
     parser.add_argument("--freq_min", type=int, default=300, help="Minimum frequency (Hz)")
@@ -132,6 +137,6 @@ if __name__ == "__main__":
                          out_path=args.out,
                          meta_out=args.meta_out,
                          duration_per_line=args.duration,
-                         sample_rate=args.rate,   
+                         sample_rate=args.rate,  
                          freq_min=args.freq_min,
                          freq_max=args.freq_max)
