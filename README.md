@@ -15,25 +15,27 @@ This repository is intended as an experimental playground eg. It's not productio
 
 1. Project Structure
 
-The files are organized to separate source code, examples, and documentation for clear navigation:
-
-.gitignore             # Ignores venv, pycache, and output files
-LICENSE                # Defines usage rights (e.g., MIT)
-README.md              # This document
-requirements.txt       # Python dependencies
-
-src/                   # Python source code
-├── encode.py          # Image -> WAV encoder
-├── decode_wav.py      # WAV -> Image offline decoder
-└── live_detector.py   # Live microphone detector
-
-ExampleImages/         # Images used in this README
-├── DogOriginal.png
-└── DogDecoded.png
-
-demo_files/            # Example files to get started
-└── Dog.png
-
+The files are organized to separate source code, examples, and documentation for clear navigation: <br>
+```   
+AcousticImageEncoder/
+│
+├── .gitignore             # Ignores venv, pycache, and output files
+├── LICENSE                # Defines usage rights (e.g., MIT)
+├── README.md              # This document
+├── requirements.txt       # Python dependencies
+│
+├── src/                   # Python source code
+│   ├── encode.py          # Image -> WAV encoder
+│   ├── decode_wav.py      # WAV -> Image offline decoder
+│   └── live_detector.py   # Live microphone detector
+│
+├── ExampleImages/         # Images used in this README
+│   ├── DogOriginal.png
+│   └── DogDecoded.png
+│
+└── demo_files/            # Example files to get started
+    └── Dog.png
+ ```
 2. Install dependencies (recommended into a venv):
 
 ```powershell
@@ -91,11 +93,11 @@ Below is an image before and after being encoded and decoded by this toolkit.
 
 Unprocessed Image
 <br>
-![Original Dog](./ExampleImages/DogOriginal.png)
+![Original Dog](./example_images/DogOriginal.png)
 
 Encoded then Decoded Image
 <br>
-![Decoded Dog](./ExampleImages/DogDecoded.png)
+![Decoded Dog](./example_images/DogDecoded.png)
 <br>
 
 **Settings used for this example:**
